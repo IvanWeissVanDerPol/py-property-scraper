@@ -209,11 +209,9 @@ class ClasiparScraper(BaseScraper):
         return val
 
     def _extract_field(self, text: str, field: str) -> str | None:
-        escaped = re.escape(field)
         patterns = [
-            escaped + r"[:\s]*</span>(?:[^<]*(?:<(?!/?strong>)[^>]*>)?)*?<strong>([^<]+)",
-            escaped + r"[:\s]*<strong>([^<]+)",
-            escaped + r"[:\s]*\n*([^\n]+)",
+            re.escape(field) + r"[:\s]*</span>(?:<span[^>]*style=\"?'?font-size:\s*0[^>]*>[^<]*</span>\s*)*\s*<[^>]*>([^<]+)",
+            re.escape(field) + r"[:\s]*<strong>([^<]+)",
         ]
         for pat in patterns:
             m = re.search(pat, text, re.IGNORECASE)

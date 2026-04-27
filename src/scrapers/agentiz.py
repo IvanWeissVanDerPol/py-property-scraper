@@ -1,6 +1,6 @@
-# Agentiz PY scraper — server-rendered search + detail pages.
-# Search via /es/for-sale-{type} or /es/for-rent-{type} URLs.
-# Uses .b-property-card for listing extraction, .b-view-* for detail.
+# Agentiz PY scraper — ad-posting platform, NOT a listing directory.
+# Inventory is too small (~25 PY listings) and JS-rendered via API calls.
+# Not worth the effort — kept for completeness.
 
 import re
 from urllib.parse import urljoin
