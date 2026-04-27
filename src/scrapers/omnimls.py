@@ -213,10 +213,10 @@ def run(max_pages: int = 15):
 
             print(f"  Page {page_num}: {url}")
             try:
-                page.goto(url, wait_until="networkidle", timeout=30000)
-                page.wait_for_timeout(2000)
+                page.goto(url, wait_until="domcontentloaded", timeout=30000)
+                page.wait_for_timeout(3000)
             except Exception as e:
-                print(f"  Page {page_num}: timeout/nav error: {e}")
+                print(f"  Page {page_num}: nav error: {e}")
                 page.wait_for_timeout(5000)
 
             body_text = page.locator("body").inner_text()
