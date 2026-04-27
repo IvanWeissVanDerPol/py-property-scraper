@@ -10,6 +10,7 @@ from src.scrapers.propiedadesya import PropiedadesYAScraper
 from src.scrapers.buscocasita import BuscocasitaScraper
 from src.scrapers.agentiz import AgentizScraper
 from src.scrapers.mercadolibre import run as run_mercadolibre
+from src.scrapers.omnimls import run as run_omnimls
 from config.settings import DATA_DIR
 
 
@@ -21,11 +22,20 @@ ALL_SCRAPERS = {
     "buscocasita": BuscocasitaScraper,
     "agentiz": AgentizScraper,
     "mercadolibre": "mercadolibre_plugin",
+    "omnimls": "omnimls_plugin",
 }
 
 
 def run_mercadolibre_plugin(limit: int | None = None):
     run_mercadolibre(max_pages=limit or 6)
+
+
+def run_remax_plugin(limit: int | None = None):
+    run_remax(max_pages=limit or 10)
+
+
+def run_omnimls_plugin(limit: int | None = None):
+    run_omnimls(max_pages=limit or 15)
 
 
 def run_all(limit: int | None = None):
@@ -35,6 +45,12 @@ def run_all(limit: int | None = None):
         print(f"{'='*60}")
         if name == "mercadolibre":
             run_mercadolibre_plugin(limit)
+            continue
+        if name == "remax":
+            run_remax_plugin(limit)
+            continue
+        if name == "omnimls":
+            run_omnimls_plugin(limit)
             continue
         scraper = cls()
         if limit:
@@ -58,6 +74,12 @@ def run_one(name: str, limit: int | None = None):
         return
     if name == "mercadolibre":
         run_mercadolibre_plugin(limit)
+        return
+    if name == "remax":
+        run_remax_plugin(limit)
+        return
+    if name == "omnimls":
+        run_omnimls_plugin(limit)
         return
     scraper = cls()
     if limit:
