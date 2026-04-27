@@ -227,26 +227,24 @@ def run(max_pages: int = 15):
                 print(f"  Page {page_num}: no listings found, stopping.")
                 break
 
-            cards = page.locator("a").all()
+            detail_links = page.locator("a[href^='/listing/']")
+            seen_detail = set()
             detail_urls = []
-            for card in cards:
+            for ci in range(detail_links.count()):
                 try:
-                    href = card.get_attribute("href") or ""
-                    txt = card.inner_text().strip().lower()
-                    if (
-                        href
-                        and "/v/detail/" in href
-                        and href not in detail_urls
-                        and txt == "view"
-                    ):
-                        if href.startswith("/"):
-                            href = BASE_URL + href
-                        detail_urls.append(href)
+                    href = detail_links.nth(ci).get_attribute("href") or ""
+                    full = BASE_URL + href
+                    if full not in seen_detail:
+                        seen_detail.add(full)
+                        detail_urls.append(full)
                 except Exception:
                     pass
 
             for i, listing_data in enumerate(listings):
-                url_for_listing = detail_urls[i] if i < len(detail_urls) else url
+                url_for_listing = (
+                    detail_urls[i] if i < len(detail_urls)
+                    else f"{url}#{listing_data['title'][:40]}"
+                )
                 if url_for_listing in seen_urls:
                     continue
                 seen_urls.add(url_for_listing)
