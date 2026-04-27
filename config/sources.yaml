@@ -1,0 +1,110 @@
+# Paraguayan Property Sources Configuration
+# Each source defines search URLs, rate limits, and scraping strategy.
+
+sources:
+  - name: clasipar
+    display_name: Clasipar
+    base_url: https://clasipar.paraguay.com
+    search_urls:
+      - /venta/casas
+      - /venta/departamentos
+      - /venta/terrenos
+      - /venta/locales
+    enabled: true
+    rate_limit_delay: 1.5
+    requires_js: false
+    requires_auth: false
+    max_pages: 100
+
+  - name: infocasas
+    display_name: InfoCasas
+    base_url: https://www.infocasas.com.py
+    search_urls:
+      - /venta
+      - /venta/casas
+      - /venta/departamentos
+      - /venta/terrenos
+    enabled: true
+    rate_limit_delay: 2.0
+    requires_js: true  # TBC — needs verification
+    requires_auth: false
+    max_pages: 100
+
+  - name: mercadolibre
+    display_name: MercadoLibre Inmuebles
+    base_url: https://inmuebles.mercadolibre.com.py
+    search_urls:
+      - /casa/venta/
+      - /departamento/venta/
+      - /terreno/venta/
+    enabled: true
+    rate_limit_delay: 3.0
+    requires_js: false
+    requires_auth: false
+    max_pages: 50
+
+  - name: inmueblespy
+    display_name: InmueblesPY
+    base_url: https://inmueblespy.com
+    search_urls:
+      - /
+    enabled: true
+    rate_limit_delay: 2.0
+    requires_js: false
+    requires_auth: false
+    max_pages: 50
+
+  - name: propiedadesya
+    display_name: PropiedadesYA
+    base_url: https://propiedadesya.com.py
+    search_urls:
+      - /
+    enabled: true
+    rate_limit_delay: 2.0
+    requires_js: false
+    requires_auth: false
+    max_pages: 30
+
+  - name: century21
+    display_name: Century 21 Paraguay
+    base_url: https://century21.com.py
+    search_urls:
+      - /propiedades
+    enabled: true
+    rate_limit_delay: 2.0
+    requires_js: true  # TBC
+    requires_auth: false
+    max_pages: 30
+
+  - name: remax
+    display_name: RE/MAX Paraguay
+    base_url: https://www.remax.com.py
+    search_urls:
+      - /listings
+    enabled: true
+    rate_limit_delay: 2.0
+    requires_js: true  # TBC
+    requires_auth: false
+    max_pages: 30
+
+  - name: buscocasita
+    display_name: Buscocasita Paraguay
+    base_url: https://paraguay.buscocasita.com
+    search_urls:
+      - /
+    enabled: true
+    rate_limit_delay: 2.0
+    requires_js: false
+    requires_auth: false
+    max_pages: 30
+
+  - name: agentiz
+    display_name: Agentiz Paraguay
+    base_url: https://py.agentiz.com
+    search_urls:
+      - /
+    enabled: true
+    rate_limit_delay: 2.0
+    requires_js: false
+    requires_auth: false
+    max_pages: 30
