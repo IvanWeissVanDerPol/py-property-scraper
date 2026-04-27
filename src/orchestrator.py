@@ -9,6 +9,7 @@ from src.scrapers.inmueblespy import InmueblesPYScraper
 from src.scrapers.propiedadesya import PropiedadesYAScraper
 from src.scrapers.buscocasita import BuscocasitaScraper
 from src.scrapers.agentiz import AgentizScraper
+from src.scrapers.mercadolibre import run as run_mercadolibre
 from config.settings import DATA_DIR
 
 
@@ -19,7 +20,12 @@ ALL_SCRAPERS = {
     "propiedadesya": PropiedadesYAScraper,
     "buscocasita": BuscocasitaScraper,
     "agentiz": AgentizScraper,
+    "mercadolibre": "mercadolibre_plugin",
 }
+
+
+def run_mercadolibre_plugin(limit: int | None = None):
+    run_mercadolibre(max_pages=limit or 6)
 
 
 def run_all(limit: int | None = None):
@@ -27,6 +33,9 @@ def run_all(limit: int | None = None):
         print(f"\n{'='*60}")
         print(f"Running: {name}")
         print(f"{'='*60}")
+        if name == "mercadolibre":
+            run_mercadolibre_plugin(limit)
+            continue
         scraper = cls()
         if limit:
             scraper.config.max_pages = limit
@@ -46,6 +55,9 @@ def run_one(name: str, limit: int | None = None):
     cls = ALL_SCRAPERS.get(name)
     if not cls:
         print(f"Unknown scraper: {name}. Available: {list(ALL_SCRAPERS.keys())}")
+        return
+    if name == "mercadolibre":
+        run_mercadolibre_plugin(limit)
         return
     scraper = cls()
     if limit:
